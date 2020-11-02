@@ -1,10 +1,9 @@
 package webserver;
 
-import java.awt.*;
+//import java.awt.*;
 import java.net.*;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Date;
@@ -141,12 +140,11 @@ public class WebServer extends Thread {
 					
 					// send HTTP Headers
 					out.println("HTTP/1.1 200 OK");
-					out.println("Server: Java HTTP Server from SSaurel : 1.0");
+					out.println("Server: Java HTTP Server");
 					out.println("Date: " + new Date());
 					out.println("Content-type: " + content);
 					out.println("Content-length: " + fileLength);
-					out.println(""); // blank line between headers and content, very important !
-					out.flush(); // flush character output stream buffer
+					out.println("");
 					
 					data.write(fileData, 0, fileLength);
 					data.flush();
@@ -165,21 +163,21 @@ public class WebServer extends Thread {
 		}
 	}
 	
-	private boolean filesFoldersExists(String path) {
+	public static boolean filesFoldersExists(String path) {
 		if(Files.exists(Paths.get(path), LinkOption.NOFOLLOW_LINKS))
 			return true;
 		else
 			return false;
 	}
 	
-	private String getContentType(String fileRequested) {
+	public static String getContentType(String fileRequested) {
 		if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
 			return "text/html";
 		else
 			return "text/plain";
 	}
 	
-	private byte[] readFileData(File file, int fileLength) throws IOException {
+	public static byte[] readFileData(File file, int fileLength) throws IOException {
 		FileInputStream fileIn = null;
 		byte[] fileData = new byte[fileLength];
 		
