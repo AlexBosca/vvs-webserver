@@ -27,6 +27,7 @@ public class WebServer extends Thread {
 	
 	
 	protected Socket clientSocket;
+	private static State state;
 	protected enum State{
 		Stopped(true, "Run"),
 		Running(true, "Maintenance", "Stop"),
@@ -58,7 +59,7 @@ public class WebServer extends Thread {
 
 	public static void main(String[] args) throws IOException {
 		ServerSocket serverSocket = null;
-		State state = State.Stopped;
+		state = State.Stopped;
 
 		try {
 			serverSocket = new ServerSocket(PORT);

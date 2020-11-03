@@ -1,13 +1,19 @@
 package webserver.testcase;
 
 import webserver.WebServer;
+import java.io.*;
+
 import static org.junit.Assert.*;
 
 import org.junit.*;
+import org.junit.rules.TemporaryFolder;
 
 public class TestCases {
 	
 	private static String path_index_html, path_index_htm, path_style_css;
+	
+	@Rule
+	public TemporaryFolder tempFolder = new TemporaryFolder();
 	
 	@BeforeClass
 	public static void setup() {
@@ -46,5 +52,33 @@ public class TestCases {
 		
 		assertEquals(contentTypeHtml, "text/html");
 		assertEquals(contentTypeHtm, "text/html");
+	}
+	
+	@Test
+	public void readFileData() throws IOException {
+		File tempHTML = tempFolder.newFile("tempHTML.html");
+		FileOutputStream writeInFile = new FileOutputStream(tempHTML);
+		String htmlContent = "<html>\r\n" + 
+				"  <head>\r\n" + 
+				"    <title>This is the title of the webpage!</title>\r\n" + 
+				"  </head>\r\n" + 
+				"  <body>\r\n" + 
+				"    <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>\r\n" + 
+				"  </body>\r\n" + 
+				"</html>";
+		
+		byte[] htmlBytesToWrite = htmlContent.getBytes();
+		int fileLength = (int) tempHTML.length();
+		
+		writeInFile.write(htmlBytesToWrite);
+		writeInFile.flush();
+		writeInFile.close();
+		
+		FileInputStream readFromFile = new FileInputStream(tempHTML);
+		byte[] htmlBytes = new byte[fileLength];
+		readFromFile.read(htmlBytes);
+		readFromFile.close();
+		
+		Assert.assertArrayEquals(htmlBytes, WebServer.readFileData(tempHTML, fileLength));
 	}
 }
