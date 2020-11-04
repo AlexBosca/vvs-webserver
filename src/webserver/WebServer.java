@@ -28,6 +28,9 @@ public class WebServer extends Thread {
 	
 	protected Socket clientSocket;
 	private static State state;
+	private static String directory;
+	private static boolean commandLineDir;
+	
 	protected enum State{
 		Stopped(true, "Run"),
 		Running(true, "Maintenance", "Stop"),
@@ -60,6 +63,13 @@ public class WebServer extends Thread {
 	public static void main(String[] args) throws IOException {
 		ServerSocket serverSocket = null;
 		state = State.Stopped;
+		
+		if(args.length == 1) {
+			directory = args[0];
+			commandLineDir = true;
+		} else {
+			commandLineDir = false;
+		}
 
 		try {
 			serverSocket = new ServerSocket(PORT);
@@ -128,8 +138,13 @@ public class WebServer extends Thread {
 			
 			if(method.equals("GET") || method.equals("HEAD")) {
 				if(requestedFile.endsWith("/")) {
-					if(filesFoldersExists(ROOT_DIRECTORIES[0] + "/" + DEFAULT_PAGES[0]))
-						requestedFile += ROOT_DIRECTORIES[0] + "/" + DEFAULT_PAGES[0];
+					if(WebServer.commandLineDir) {
+						if(filesFoldersExists(directory + "/" + "a.html"))
+							requestedFile += directory + "/" + "a.html";
+					} else {
+						if(filesFoldersExists(ROOT_DIRECTORIES[0] + "/" + DEFAULT_PAGES[0]))
+							requestedFile += ROOT_DIRECTORIES[0] + "/" + DEFAULT_PAGES[0];
+					}
 				}
 				
 				File file = new File(ROOT, requestedFile);
