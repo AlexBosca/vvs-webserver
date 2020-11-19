@@ -1,0 +1,7 @@
+D:/VVS/webserver/src/webserver/WebServer.java:92 Possible null pointer dereference of serverSocket in webserver.WebServer.main(String[]) on exception path [Troubling(11), Normal confidence]
+-acest bug apare din cauza faptului că serverSocket este inițializat cu null, iar se încearcă închiderea acestuia, valoarea sa putând rămâne setată pe null;
+-am rezolvat acest bug declarându-l pe serversocket ca variabilă statică.
+
+D:/VVS/webserver/src/webserver/testcase/TestCases.java:21 Write to static field webserver.testcase.TestCases.path_index_htm from instance method webserver.testcase.TestCases.setup() [Of Concern(15), High confidence]
+-acest bug apare din cauza faptului că se scrie într-un câmp static din metoda setup();
+-am rezolvat acest bug se face declarând metoda setup() ca fiind statică.

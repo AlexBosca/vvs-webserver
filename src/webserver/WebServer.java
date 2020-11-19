@@ -27,6 +27,7 @@ public class WebServer extends Thread {
 	
 	
 	protected Socket clientSocket;
+	protected static ServerSocket serverSocket;
 	private static State state;
 	private static String directory;
 	private static boolean commandLineDir;
@@ -61,7 +62,7 @@ public class WebServer extends Thread {
 	}
 
 	public static void main(String[] args) throws IOException {
-		ServerSocket serverSocket = null;
+		//ServerSocket serverSocket = new ServerSocket(PORT);
 		state = State.Stopped;
 		
 		if(args.length == 1) {
