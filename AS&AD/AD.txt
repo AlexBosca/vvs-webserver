@@ -1,0 +1,2 @@
+webserver.WebServer.run() WebServer.java:161 reprezintă un hot spot, pentru rezolvarea acestuia am eliminat respectiva linie din cod, deoarece nu este absolut necesară, aceasta doar punând data în headerul HTTP.
+

@@ -158,7 +158,7 @@ public class WebServer extends Thread {
 					// send HTTP Headers
 					out.println("HTTP/1.1 200 OK");
 					out.println("Server: Java HTTP Server");
-					out.println("Date: " + new Date());
+					
 					out.println("Content-type: " + content);
 					out.println("Content-length: " + fileLength);
 					out.println("");
@@ -170,7 +170,7 @@ public class WebServer extends Thread {
 			}
 
 			out.close();
-			//in.close();
+			in.close();
 			data.close();
 			clientSocket.close();
 		} catch (IOException e) {
