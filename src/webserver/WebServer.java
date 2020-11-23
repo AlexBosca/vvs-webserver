@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Date;
+//import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +17,7 @@ public class WebServer extends Thread {
 	
 	static final int PORT = 10008;
 	
-	static final File ROOT = new File(".");
+	//static final File ROOT = new File(".");
 	static final String[] DEFAULT_PAGES = {"index.html",
 											"index.htm",
 											"default.html"};
@@ -135,20 +135,28 @@ public class WebServer extends Thread {
 //			} catch(IOException ex) {
 //				ex.printStackTrace();
 //			}
-		
 			
 			if(method.equals("GET") || method.equals("HEAD")) {
+				//String root_path = "";
 				if(requestedFile.endsWith("/")) {
 					if(WebServer.commandLineDir) {
-						if(filesFoldersExists(directory + "/" + "a.html"))
-							requestedFile += directory + "/" + "a.html";
+						if(filesFoldersExists(directory + "/" + "a.html")) {
+							requestedFile += /*directory + "/" +*/ "a.html";
+							//ROOT = new File("./" + directory);
+							//root_path += "./" + directory;
+						}
 					} else {
-						if(filesFoldersExists(ROOT_DIRECTORIES[0] + "/" + DEFAULT_PAGES[0]))
-							requestedFile += ROOT_DIRECTORIES[0] + "/" + DEFAULT_PAGES[0];
+						if(filesFoldersExists(ROOT_DIRECTORIES[0] + "/" + DEFAULT_PAGES[0])) {
+							requestedFile += /*ROOT_DIRECTORIES[0] + "/" +*/ DEFAULT_PAGES[0];
+							//ROOT = new File("./" + ROOT_DIRECTORIES[0]);
+							//root_path = "./" + ROOT_DIRECTORIES[0];
+						}
 					}
 				}
 				
-				File file = new File(ROOT, requestedFile);
+				File root = (commandLineDir)?(new File("./" + directory)):(new File("./" + ROOT_DIRECTORIES[0]));
+				
+				File file = new File(root, requestedFile);
 				int fileLength = (int) file.length();
 				String content = getContentType(requestedFile);
 			
