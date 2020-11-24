@@ -1,13 +1,15 @@
 package webserver.gui;
 
+import java.awt.Font;
 //import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.Label;
 
 import javax.swing.BorderFactory;
 //import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 public class GUI extends JFrame {
@@ -25,7 +27,7 @@ public class GUI extends JFrame {
 		
 		setupPanels();
 		
-		this.setSize(600, 300);
+		this.setSize(550, 300);
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,13 +49,35 @@ public class GUI extends JFrame {
 		
 		//info.setBackground(Color.WHITE);
 		info.setBorder(BorderFactory.createTitledBorder(null, "WebServer info", TitledBorder.LEFT, TitledBorder.TOP));
-		info.setLayout(new GridLayout(3, 2, 100, -15));
-		info.add(new Label("Server status: "));
-		info.add(new Label("not running"));
-		info.add(new Label("Server address: "));
-		info.add(new Label("not running"));
-		info.add(new Label("Server listening port: "));		
-		info.add(new Label("not running"));
+		info.setLayout(new GridLayout(3, 2, 0, 0));
+		JLabel notRunning1 = new JLabel("not running");
+		notRunning1.setHorizontalAlignment(SwingConstants.RIGHT);
+		notRunning1.setFont(notRunning1.getFont().deriveFont(notRunning1.getFont().getStyle() & ~Font.BOLD));
+		
+		JLabel notRunning2 = new JLabel("not running");
+		notRunning2.setHorizontalAlignment(SwingConstants.RIGHT);
+		notRunning2.setFont(notRunning2.getFont().deriveFont(notRunning2.getFont().getStyle() & ~Font.BOLD));
+		
+		JLabel notRunning3 = new JLabel("not running");
+		notRunning3.setHorizontalAlignment(SwingConstants.RIGHT);
+		notRunning3.setFont(notRunning3.getFont().deriveFont(notRunning3.getFont().getStyle() & ~Font.BOLD));
+		
+		JLabel status = new JLabel("Server status: ");
+		status.setFont(status.getFont().deriveFont(status.getFont().getStyle() & ~Font.BOLD));
+		
+		JLabel address = new JLabel("Server address: ");
+		address.setFont(address.getFont().deriveFont(address.getFont().getStyle() & ~Font.BOLD));
+		
+		JLabel port = new JLabel("Server listening port: ");
+		port.setFont(port.getFont().deriveFont(port.getFont().getStyle() & ~Font.BOLD));
+		
+		
+		info.add(status);
+		info.add(notRunning1);
+		info.add(address);
+		info.add(notRunning2);
+		info.add(port);		
+		info.add(notRunning3);
 		//control.setBackground(Color.WHITE);
 		control.setBorder(BorderFactory.createTitledBorder(null, "WebServer control", TitledBorder.LEFT, TitledBorder.TOP));
 		
