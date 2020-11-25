@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+
+import webserver.gui.GUI;
+
 import java.io.*;
 
 public class WebServer extends Thread {
@@ -28,7 +31,7 @@ public class WebServer extends Thread {
 	
 	protected Socket clientSocket;
 	protected static ServerSocket serverSocket;
-	private static State state;
+	public static State state;
 	private static String directory;
 	private static boolean commandLineDir;
 	
@@ -62,7 +65,6 @@ public class WebServer extends Thread {
 	}
 
 	public static void main(String[] args) throws IOException {
-		//ServerSocket serverSocket = new ServerSocket(PORT);
 		state = State.Stopped;
 		
 		if(args.length == 1) {
@@ -72,7 +74,13 @@ public class WebServer extends Thread {
 			commandLineDir = false;
 		}
 
-		try {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+            	new GUI();
+            }
+        });
+		
+		/*try {
 			serverSocket = new ServerSocket(PORT);
 			state = state.nextState("Run", state);
 			System.out.println("Connection Socket Created");
@@ -97,7 +105,7 @@ public class WebServer extends Thread {
 			} finally {
 				state = State.Stopped;
 			}
-		}
+		}*/
 	}
 
 	private WebServer(Socket clientSoc) {
