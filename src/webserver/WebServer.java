@@ -114,6 +114,7 @@ public class WebServer extends Thread {
 					gui.maintenanceFieldState(true);
 					gui.portFieldState(true);
 					gui.webRootFieldState(true);
+					gui.deselectCheckBox();
 					break;
 				default:
 					break;

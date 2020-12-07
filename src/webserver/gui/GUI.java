@@ -132,7 +132,6 @@ public class GUI extends JFrame {
 					WebServer.state = WebServer.state.nextState("Run", WebServer.state);
 					startServer.setText("Stop Server");
 					WebServer.setPort();
-					
 				}
 				else {
 					WebServer.state = WebServer.state.nextState("Stop", WebServer.state);
@@ -294,6 +293,10 @@ public class GUI extends JFrame {
 	
 	public void setServerState(String state) {
 		this.serverState.setText(state);
+	}
+	
+	public void deselectCheckBox() {
+		this.maintenanceMode.setSelected(false);
 	}
 	
 //	public static void main(String[] args) {
