@@ -17,6 +17,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -129,9 +130,13 @@ public class GUI extends JFrame {
 		startServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				if(WebServer.state == WebServer.State.Stopped) {
-					WebServer.state = WebServer.state.nextState("Run", WebServer.state);
-					startServer.setText("Stop Server");
-					WebServer.setPort();
+					if(getPort() == 0) {
+						JOptionPane.showMessageDialog(null, "Listening port field empty or invalid port number", "Alert", JOptionPane.ERROR_MESSAGE);
+					} else {
+						WebServer.state = WebServer.state.nextState("Run", WebServer.state);
+						startServer.setText("Stop Server");
+						WebServer.setPort(getPort());
+					}
 				}
 				else {
 					WebServer.state = WebServer.state.nextState("Stop", WebServer.state);
@@ -157,7 +162,7 @@ public class GUI extends JFrame {
 				}
 				WebServer.closeServer();
 				WebServer.gui.setTitle(title + " - " + "[" + WebServer.state + "]");
-				WebServer.setPort();
+				WebServer.setPort(getPort());
 			}
 			
 		});
@@ -279,10 +284,16 @@ public class GUI extends JFrame {
 	}
 	
 	public String getMaintenanceDirectory() {
+		if(tfMaintenanceDir.getText().trim().isEmpty())
+			return "";
+		
 		return tfMaintenanceDir.getText().trim();
 	}
 	
 	public int getPort() {
+		if(tfPort.getText().trim().isEmpty())
+			return 0;
+		
 		return Integer.parseInt(tfPort.getText().trim());
 	}
 	
