@@ -258,8 +258,8 @@ public class WebServer extends Thread {
 		}
 	}
 	
-	public static void setPort() {
-		port = gui.getPort();
+	public static void setPort(int getPort) {
+		port = getPort;
 	}
 	
 	public static int getPort() {
