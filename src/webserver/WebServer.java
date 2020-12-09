@@ -85,7 +85,10 @@ public class WebServer extends Thread {
 							webServer = new WebServer(serverSocket.accept(), gui.getMaintenanceDirectory().replace('\\', '/'));
 						}
 					} catch (IOException e) {
-						
+						if(state != State.Stopped && state != State.Maintenance) {
+							System.err.println("Accept failed.");
+							System.exit(1);
+						}
 					}
 					break;
 				case Running:
@@ -266,8 +269,8 @@ public class WebServer extends Thread {
 		return serverSocket.getLocalPort();
 	}
 	
-	public static String getAddress() {
-		return serverSocket.getInetAddress().getHostName();
+	public static String getAddress() throws UnknownHostException {
+		return InetAddress.getLocalHost().getHostAddress();
 	}
 	
 }
