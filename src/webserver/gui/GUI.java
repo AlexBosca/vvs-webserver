@@ -132,6 +132,8 @@ public class GUI extends JFrame {
 				if(WebServer.state == WebServer.State.Stopped) {
 					if(getPort() == 0) {
 						JOptionPane.showMessageDialog(null, "Listening port field empty or invalid port number", "Alert", JOptionPane.ERROR_MESSAGE);
+					} else if(getRootDirectory() == "") {
+						JOptionPane.showMessageDialog(null, "Root directory field empty", "Alert", JOptionPane.ERROR_MESSAGE);
 					} else {
 						WebServer.state = WebServer.state.nextState("Run", WebServer.state);
 						startServer.setText("Stop Server");
@@ -156,7 +158,11 @@ public class GUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				if(maintenanceMode.isSelected()) {
-					WebServer.state = WebServer.state.nextState("Maintenance", WebServer.state);
+					if(getMaintenanceDirectory() == "") {
+						JOptionPane.showMessageDialog(null, "Maintenance directory field empty or invalid port number", "Alert", JOptionPane.ERROR_MESSAGE);
+					} else {
+						WebServer.state = WebServer.state.nextState("Maintenance", WebServer.state);
+					}
 				} else {
 					WebServer.state = WebServer.state.nextState("Run", WebServer.state);
 				}
@@ -280,6 +286,9 @@ public class GUI extends JFrame {
 	}
 	
 	public String getRootDirectory() {
+		if(tfRootDir.getText().trim().isEmpty())
+			return "";
+		
 		return tfRootDir.getText().trim();
 	}
 	
