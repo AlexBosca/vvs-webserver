@@ -266,7 +266,7 @@ public class WebServer extends Thread {
 	}
 	
 	public static int getPort() {
-		return serverSocket.getLocalPort();
+		return port;
 	}
 	
 	public static String getAddress() throws UnknownHostException {

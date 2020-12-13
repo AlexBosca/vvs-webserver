@@ -17,7 +17,7 @@ public class TestCases {
 	
 	@BeforeClass
 	public static void setup() {
-		path_index_html = "www/index.html";
+		path_index_html = "www/mySite/index.html";
 		path_index_htm = "www/index.htm";
 		path_style_css = "www/style.css";
 	}
@@ -81,4 +81,6 @@ public class TestCases {
 		
 		Assert.assertArrayEquals(htmlBytes, WebServer.readFileData(tempHTML, fileLength));
 	}
+	
+	
 }
