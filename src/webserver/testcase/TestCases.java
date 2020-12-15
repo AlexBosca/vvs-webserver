@@ -2,6 +2,8 @@ package webserver.testcase;
 
 import webserver.WebServer;
 import java.io.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import static org.junit.Assert.*;
 
@@ -55,6 +57,17 @@ public class TestCases {
 	}
 	
 	@Test
+	public void setterAndGetterPort() {
+		WebServer.setPort(8800);
+		assertEquals(8800, WebServer.getPort());
+	}
+	
+	@Test
+	public void getAddress() throws UnknownHostException {
+		assertEquals(InetAddress.getLocalHost().getHostAddress(), WebServer.getAddress());
+	}
+	
+	@Test
 	public void readFileData() throws IOException {
 		File tempHTML = tempFolder.newFile("tempHTML.html");
 		FileOutputStream writeInFile = new FileOutputStream(tempHTML);
@@ -81,6 +94,5 @@ public class TestCases {
 		
 		Assert.assertArrayEquals(htmlBytes, WebServer.readFileData(tempHTML, fileLength));
 	}
-	
 	
 }
