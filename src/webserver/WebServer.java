@@ -63,7 +63,16 @@ public class WebServer extends Thread {
 		}
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
+		try {
+			startWebServer();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void startWebServer() throws IOException {
 		state = State.Stopped;
 
 		gui = new GUI();
@@ -85,7 +94,7 @@ public class WebServer extends Thread {
 							webServer = new WebServer(serverSocket.accept(), gui.getMaintenanceDirectory().replace('\\', '/'));
 						}
 					} catch (IOException e) {
-						if(state != State.Stopped && state != State.Maintenance) {
+						if(state != State.Stopped && state != State.Running) {
 							System.err.println("Accept failed.");
 							System.exit(1);
 						}
@@ -122,10 +131,6 @@ public class WebServer extends Thread {
 				default:
 					break;
 				}
-//			} catch(IOException e) {
-//				System.err.println("Could not listen on port: 10008.");
-//				System.exit(1);
-//			}
 		}
 	}
 
@@ -151,26 +156,6 @@ public class WebServer extends Thread {
 			String method = parse.nextToken().toUpperCase();
 			requestedFile = parse.nextToken().toLowerCase();
 			
-			/**
-			 *	Create two separate methods for loading web page and maintenance page
-			 */
-			
-			//String directory = gui.getRootDirectory().replace('\\', '/');
-			
-//			do {
-//				System.out.println("Server: " + inputLine);
-//				out.println(inputLine);
-//
-//				if (inputLine.trim().equals(""))
-//					break;
-//			} while ((inputLine = in.readLine()) != null);
-//			
-//			
-//			try {
-//				in.close();
-//			} catch(IOException ex) {
-//				ex.printStackTrace();
-//			}
 			
 			if(method.equals("GET") || method.equals("HEAD")) {
 				
