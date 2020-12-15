@@ -49,8 +49,6 @@ public class GUI extends JFrame {
 	private JTextField tfRootDir;
 	private JTextField tfMaintenanceDir;
 	
-	//private JFileChooser fileChooser; 
-	
 	private JButton browseRoot;
 	private JButton browseMaintenance;
 	private JButton ok;
@@ -318,14 +316,5 @@ public class GUI extends JFrame {
 	public void deselectCheckBox() {
 		this.maintenanceMode.setSelected(false);
 	}
-	
-//	public static void main(String[] args) {
-//		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-//            public void run() {
-//            	new GUI();
-//            }
-//        });
-//
-//	}
 
 }
