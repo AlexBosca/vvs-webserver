@@ -316,5 +316,21 @@ public class GUI extends JFrame {
 	public void deselectCheckBox() {
 		this.maintenanceMode.setSelected(false);
 	}
+	
+	public void setMaintenanceField(String path) {
+		this.tfMaintenanceDir.setText(path);
+	}
+	
+	public void setRootDirectory(String path) {
+		this.tfRootDir.setText(path);
+	}
+	
+	public void setPort(String number) {
+		this.tfPort.setText(number);
+	}
+	
+	public void clickStartButton() {
+		this.startServer.doClick();
+	}
 
 }
