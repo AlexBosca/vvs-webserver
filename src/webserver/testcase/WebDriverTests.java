@@ -108,6 +108,13 @@ public class WebDriverTests {
 		assertFalse(Boolean.parseBoolean(checkBox.getAttribute("checked")));
 	}
 	
+	@Test
+	public void testHomeLink() {
+		driver.navigate().to("http://localhost:10008/");
+		driver.findElement(By.id("homelnk")).click();
+		assertEquals("http://localhost:10008/#", driver.getCurrentUrl());
+	}
+	
 	public void accessLoginPage() {
 		driver.navigate().to("http://localhost:10008/Button1/Button1.html");
 	}
