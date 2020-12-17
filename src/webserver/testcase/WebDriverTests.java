@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -36,12 +38,16 @@ public class WebDriverTests {
 	
 	@Before
 	public void setUp() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\alex_\\Downloads\\chromedriver_win32\\chromedriver.exe");
+		
+		String path = System.getProperty("user.dir");
+		String chromeDriverPath = "\\Chrome Driver\\chromedriver.exe";
+		
+		System.setProperty("webdriver.chrome.driver", path + chromeDriverPath);
 		
 		driver = new ChromeDriver();
 	}
 	
-	@Ignore@Test
+	@Test
 	public void testTitle() {
 		driver.navigate().to("http://localhost:10008/");
 		
@@ -51,7 +57,7 @@ public class WebDriverTests {
 		assertEquals(expectedTitle, actualTitle);
 	}
 	
-	@Ignore@Test
+	@Test
 	public void testLoginUsernameField() {
 		String expectedUsername = "some_Us3rN4me";
 		String actualUsername;
@@ -65,7 +71,7 @@ public class WebDriverTests {
 		assertEquals(expectedUsername, actualUsername);
 	}
 	
-	@Ignore@Test
+	@Test
 	public void testLoginPasswordField() {
 		String expectedPassword = "P4ssw0rdd";
 		String actualPassword;
@@ -80,21 +86,21 @@ public class WebDriverTests {
 			
 	}
 	
-	@Ignore@Test
+	@Test
 	public void testLoginButton() {
 		accessLoginPage();
 		driver.findElement(By.id("login")).click();
 		assertEquals("http://localhost:10008/index.html", driver.getCurrentUrl());
 	}
 	
-	@Ignore@Test
+	@Test
 	public void testPasswordForgot() {
 		accessLoginPage();
 		driver.findElement(By.name("password")).click();
 		assertEquals("http://localhost:10008/Button1/Button1.html#", driver.getCurrentUrl());
 	}
 	
-	@Ignore@Test
+	@Test
 	public void testRememberMeSelected() {
 		accessLoginPage();
 		assertTrue(Boolean.parseBoolean(driver.findElement(By.id("remember")).getAttribute("checked")));
@@ -106,6 +112,41 @@ public class WebDriverTests {
 		WebElement checkBox =  driver.findElement(By.id("remember"));
 		checkBox.click();
 		assertFalse(Boolean.parseBoolean(checkBox.getAttribute("checked")));
+	}
+	
+	@Test
+	public void testRegisterTextFields() {
+		accessRegisterPage();
+		List<WebElement> elements = driver.findElements(By.className("textfield"));
+		String content = "TextField12321Content";
+		
+		for(WebElement we : elements) {
+			we.sendKeys(content);
+			assertEquals(content, we.getAttribute("value"));
+		}
+	}
+	
+	@Test
+	public void testRegisterLink() {
+		accessRegisterPage();
+		driver.findElement(By.id("register")).click();
+		assertEquals("http://localhost:10008/index.html", driver.getCurrentUrl());
+	}
+	
+	@Test
+	public void testSearchTextField() {
+		accessRegisterPage();
+		String content = "Something to search";
+		WebElement element = driver.findElement(By.name("search"));
+		element.sendKeys(content);
+		assertEquals(content, element.getAttribute("value"));
+	}
+	
+	@Test
+	public void testSearchButton() {
+		driver.navigate().to("http://localhost:10008/");
+		driver.findElement(By.tagName("button")).click();
+		assertEquals("http://localhost:10008/Button2/Button2.html", driver.getCurrentUrl());
 	}
 	
 	@Test
